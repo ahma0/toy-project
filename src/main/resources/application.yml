@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: gitgitlevel
+
+  config:
+    import:
+      - keys.yml
