@@ -19,7 +19,7 @@ class GithubApi(
     fun getCommittedYears(username: String): List<Int> {
         return client.post()
             .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
-            .body(mapOf("query" to commitYear.replace(USER_NAME, username)))
+            .body(mapOf("query" to userYearQuery.replace(USER_NAME, username)))
             .exchange { _, response ->
                 assertIsSuccess(response)
                 response.bodyTo(CommitYearResponse::class.java)!!
@@ -44,10 +44,10 @@ class GithubApi(
         private const val USER_NAME = "*{user_name}"
         private const val YEAR = "*{year}"
 
-        private val commitCountQuery: String =
-            ClassPathResource("github-graphql/commit-count.graphql").getContentAsString(Charset.defaultCharset())
+        private val userYearQuery: String =
+            ClassPathResource("github-graphql/user-year.graphql").getContentAsString(Charset.defaultCharset())
 
-        private val commitYear: String =
+        private val commitYearQuery: String =
             ClassPathResource("github-graphql/commit-year.graphql").getContentAsString(Charset.defaultCharset())
     }
 
