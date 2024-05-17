@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 import java.nio.charset.Charset
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
 
 @Component
@@ -28,6 +29,44 @@ class GithubApi(
                     .contributionsCollection
                     .contributionYears
             }
+    }
+
+    fun getCommitCount(username: String, years: List<Int>): MutableMap<Int, Int> {
+        val completableFutures = mutableListOf<CompletableFuture<Int>>()
+        years.forEach { year ->
+            val completableFuture = CompletableFuture.supplyAsync({
+                client.post()
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+                    .body(
+                        mapOf(
+                            "query" to commitYearQuery
+                                .replaceFirst(USER_NAME, username)
+                                .replace(YEAR, year.toString())
+                        )
+                    )
+                    .exchange { _, response ->
+                        assertIsSuccess(response)
+
+                        response.bodyTo(CommitCountByYearResponse::class.java)!!
+                            .data
+                            .user
+                            .contributionsCollection
+                            .contributionCalendar
+                            .totalContributions
+                    }
+            }, executors)
+
+            completableFutures.add(completableFuture)
+        }
+
+        val ans = mutableMapOf<Int, Int>()
+        years.withIndex().forEach {
+            val index = it.index
+            val year = it.value
+            val completableFuture = completableFutures[index]
+            ans[year] = completableFuture.get()
+        }
+        return ans
     }
 
     private fun assertIsSuccess(response: RestClient.RequestHeadersSpec.ConvertibleClientHttpResponse) {
