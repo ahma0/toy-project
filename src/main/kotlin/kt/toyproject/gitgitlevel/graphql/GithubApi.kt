@@ -20,7 +20,7 @@ class GithubApi(
     fun getCommittedYears(username: String): List<Int> {
         return client.post()
             .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
-            .body(mapOf("query" to userYearQuery.replace(USER_NAME, username)))
+            .body(mapOf("query" to contributionYearsByUserQuery.replace(USER_NAME, username)))
             .exchange { _, response ->
                 assertIsSuccess(response)
                 response.bodyTo(CommitYearResponse::class.java)!!
@@ -39,7 +39,7 @@ class GithubApi(
                     .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                     .body(
                         mapOf(
-                            "query" to commitYearQuery
+                            "query" to contributionCountByUserAndYearQuery
                                 .replaceFirst(USER_NAME, username)
                                 .replace(YEAR, year.toString())
                         )
@@ -83,11 +83,11 @@ class GithubApi(
         private const val USER_NAME = "*{user_name}"
         private const val YEAR = "*{year}"
 
-        private val userYearQuery: String =
-            ClassPathResource("github-graphql/user-year.graphql").getContentAsString(Charset.defaultCharset())
+        private val contributionYearsByUserQuery: String =
+            ClassPathResource("github-graphql/contribution-year-by-user.graphql").getContentAsString(Charset.defaultCharset())
 
-        private val commitYearQuery: String =
-            ClassPathResource("github-graphql/commit-year.graphql").getContentAsString(Charset.defaultCharset())
+        private val contributionCountByUserAndYearQuery: String =
+            ClassPathResource("github-graphql/total-contribution-count-by-user-year.graphql").getContentAsString(Charset.defaultCharset())
     }
 
 }
