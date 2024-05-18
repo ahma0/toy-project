@@ -4,6 +4,7 @@ query {
             contributionCalendar {
                 totalContributions
                 weeks{
+                    firstDay
                     contributionDays {
                         contributionCount
                         date
