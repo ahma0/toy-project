@@ -1,17 +1,6 @@
-package kt.toyproject.gitgitlevel.graphql
+package kt.toyproject.gitgitlevel.graphql.response
 
-
-class CommitYearResponse(val data: Data) {
-    class Data(val user: User) {
-        class User(val contributionsCollection: ContributionsCollection) {
-            class ContributionsCollection(
-                val contributionYears: List<Int>,
-            )
-        }
-    }
-}
-
-class CommitCountByYearResponse(val data: Data) {
+class ContributionCountByYearResponse(val data: Data) {
     class Data(val user: User) {
         class User(val contributionsCollection: ContributionsCollection) {
             class ContributionsCollection(
