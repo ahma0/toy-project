@@ -1,5 +1,6 @@
 package kt.toyproject.gitgitlevel.controller
 
+import kt.toyproject.gitgitlevel.graphql.data.ContributionCalendarDay
 import kt.toyproject.gitgitlevel.service.ChartService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,7 +14,7 @@ class ChartController(
 ) {
 
     @GetMapping
-    fun getChartImage(@RequestParam(name = "username") githubId: String) : List<Int> =
+    fun getChartImage(@RequestParam(name = "username") githubId: String) : MutableMap<Int, List<ContributionCalendarDay>> =
         chartService.getChartImage(githubId)
 
 }
