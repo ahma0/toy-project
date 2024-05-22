@@ -43,6 +43,9 @@ dependencies {
     // JFreeChart
     implementation("org.jfree:jfreechart:1.5.3")
 
+    //GraalVM
+    implementation("org.graalvm.js:js:21.3.0")
+
     // kotest
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
