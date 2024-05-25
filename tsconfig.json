@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "outDir": "./src/main/resources/scripts",
-    "strict": true
-  },
-  "include": ["src/main/resources/scripts/**/*"]
-}
