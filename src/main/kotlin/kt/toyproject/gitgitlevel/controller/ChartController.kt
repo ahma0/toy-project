@@ -1,5 +1,6 @@
 package kt.toyproject.gitgitlevel.controller
 
+import kt.toyproject.gitgitlevel.data.ChartTypes
 import kt.toyproject.gitgitlevel.graphql.data.ContributionCalendarDay
 import kt.toyproject.gitgitlevel.service.ChartService
 import org.springframework.core.io.InputStreamResource
@@ -19,8 +20,11 @@ class ChartController(
 ) {
 
     @GetMapping
-    fun getChartImage(@RequestParam(name = "username") githubId: String) : MutableMap<Int, List<ContributionCalendarDay>> =
-        chartService.getChartImage(githubId)
+    fun getChartImage(
+        @RequestParam(name = "username") githubId: String,
+        @RequestParam(name = "chart", defaultValue = "bar") chartType: String
+    ) : String =
+        chartService.getChartImageGroupByYear(githubId, ChartTypes.of(chartType))
 
     @GetMapping("/barchart")
     fun generateChartImage(): ResponseEntity<InputStreamResource> {
