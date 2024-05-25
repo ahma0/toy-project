@@ -47,7 +47,7 @@ dependencies {
     implementation("org.graalvm.js:js:21.3.0")
 
     //Gson
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     // kotest
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
