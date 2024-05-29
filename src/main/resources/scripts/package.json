@@ -11,10 +11,13 @@
   "dependencies": {
     "@types/node": "^20.12.12",
     "ccapture.js": "^1.1.0",
+    "file-saver": "^2.0.5",
+    "gif.js": "^0.2.0",
     "three": "^0.164.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@types/three": "^0.164.1",
     "ts-node": "^10.9.2"
   }
 }
