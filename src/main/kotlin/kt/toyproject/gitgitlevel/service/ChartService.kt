@@ -12,6 +12,7 @@ import org.jfree.chart.renderer.category.BarRenderer
 import org.jfree.data.category.DefaultCategoryDataset
 import org.springframework.stereotype.Service
 import java.awt.Color
+import java.awt.image.BufferedImage
 import java.io.File
 
 @Service
@@ -20,7 +21,7 @@ class ChartService(
     private val scriptRunner: ScriptRunner
 ) {
 
-    fun getChartImageGroupByYear(githubId: String, types: ChartTypes): String {
+    fun getChartImageGroupByYear(githubId: String, types: ChartTypes): ByteArray {
         val contributionYears = githubApi.getContributionYearsByUser(githubId)
         val totalContributionCount = githubApi.getTotalContributionCount(githubId, contributionYears)
 
