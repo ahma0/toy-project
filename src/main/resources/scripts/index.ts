@@ -11,8 +11,8 @@ function makeChart(contributionDataJson: string, chartTypes: ChartTypes): Promis
             break;
         case ChartTypes.PIE:
             // JSON 파싱
-            const jsonData = JSON.parse(contributionDataJson);
-            result = createPieChart(jsonData);
+            // const jsonData = JSON.parse(contributionDataJson);
+            // result = createPieChart(jsonData);
             break;
     }
     return result

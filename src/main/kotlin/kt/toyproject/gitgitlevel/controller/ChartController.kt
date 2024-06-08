@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.awt.image.BufferedImage
 import java.io.FileInputStream
 
 @RestController
@@ -23,8 +24,9 @@ class ChartController(
     fun getChartImage(
         @RequestParam(name = "username") githubId: String,
         @RequestParam(name = "chart", defaultValue = "bar") chartType: String
-    ) : String =
-        chartService.getChartImageGroupByYear(githubId, ChartTypes.of(chartType))
+    ) : ResponseEntity<ByteArray> = ResponseEntity.ok()
+        .contentType(MediaType.IMAGE_PNG)
+        .body(chartService.getChartImageGroupByYear(githubId, ChartTypes.of(chartType)))
 
     @GetMapping("/barchart")
     fun generateChartImage(): ResponseEntity<InputStreamResource> {
