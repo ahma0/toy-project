@@ -39,3 +39,6 @@ out/
 ### Kotlin ###
 .kotlin
 /src/main/resources/keys.yml
+
+### ts node modules ###
+/src/main/resources/scripts/node_modules

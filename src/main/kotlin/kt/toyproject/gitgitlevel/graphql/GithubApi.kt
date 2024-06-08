@@ -35,6 +35,9 @@ class GithubApi(
             }
     }
 
+    /**
+     * year별로 개수 생성
+     */
     fun getTotalContributionCount(userName: String, years: List<Int>): MutableMap<Int, Int> {
         val completableFutures = mutableListOf<CompletableFuture<Int>>()
         years.forEach { year ->
